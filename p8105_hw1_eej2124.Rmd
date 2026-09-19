@@ -1,6 +1,6 @@
 ---
 title: "p8105_hw1_eej2124"
-author: "Emma"
+author: "Emma Johnston"
 date: "2026-09-19"
 output: github_document
 ---
@@ -16,13 +16,38 @@ data("penguins", package = "palmerpenguins")
 ```
 
 This data set includes information on the `r colnames(penguins)`. It has `r ncol(penguins)` columns and `r nrow(penguins)` rows. The mean flipper length is `r round(mean(pull(penguins, flipper_length_mm), na.rm = TRUE), 2)` mm. 
+# How do I include "values" of important variables?
 
 ### Scatterplot 
+
 ```{r}
 ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + geom_point()
 ```
+# Should I clean up this scatterplot - axis titles, etc?
+
 ```{r}
 ggsave("scatterplot.png")
 ```
+
+## Problem 2 
+
+```{r}
+df = 
+  tibble(
+    vec_numeric = rnorm(10),
+    vec_logical = vec_numeric > 0, 
+    vec_character = character(length = 10),
+    vec_factor = factor(c(length = 10), levels = 3)
+  )
+```
+# Fix vector factor 
+# Why are means so low?
+# Should I set.seed?
+
+The mean of the numeric vector is `r round(mean(pull(df, vec_numeric), 2))`. The mean of the logical vector is `r round(mean(pull(df, vec_logical), 2))`. The mean of the character vector is `r round(mean(pull(df, vec_character), 2))`. The mean of the factor vector is `r round(mean(pull(df, vec_factor), 2))`. You cannot take the mean of neither the character nor factor vectors. 
+
+# Write as.numeric code 
+
+
 
 

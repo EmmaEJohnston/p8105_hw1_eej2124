@@ -16,3 +16,13 @@ data("penguins", package = "palmerpenguins")
 ```
 
 This data set includes information on the `r colnames(penguins)`. It has `r ncol(penguins)` columns and `r nrow(penguins)` rows. The mean flipper length is `r round(mean(pull(penguins, flipper_length_mm), na.rm = TRUE), 2)` mm. 
+
+### Scatterplot 
+```{r}
+ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + geom_point()
+```
+```{r}
+ggsave("scatterplot.png")
+```
+
+

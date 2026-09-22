@@ -14,8 +14,9 @@ library(tidyverse)
 ```{r}
 data("penguins", package = "palmerpenguins")
 ```
+# Should I make a penguins df here and remove NA that way? 
 
-This data set includes information on the `r colnames(penguins)`. It has `r ncol(penguins)` columns and `r nrow(penguins)` rows. The mean flipper length is `r round(mean(pull(penguins, flipper_length_mm), na.rm = TRUE), 2)` mm. 
+This data set includes information on the `r colnames(penguins)` of the penguins studied. It has `r ncol(penguins)` columns and `r nrow(penguins)` rows. The mean flipper length is `r round(mean(pull(penguins, flipper_length_mm), na.rm = TRUE), 2)` mm. 
 
 # How do I include "values" of important variables?
 

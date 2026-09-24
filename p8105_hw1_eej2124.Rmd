@@ -17,10 +17,7 @@ data("penguins", package = "palmerpenguins")
 This data set includes information on the `r colnames(penguins)` of the penguins studied. It has `r ncol(penguins)` columns and `r nrow(penguins)` rows. The mean flipper length is `r round(mean(pull(penguins, flipper_length_mm), na.rm = TRUE), 2)` mm. 
 
 
-
-# How do I include "values" of important variables?
-
-# Had to remove NA from df - all good?
+# How do I include "values" of important variables? - say stuff about range of data 
 
 ### Scatterplot 
 
@@ -35,10 +32,10 @@ ggsave("scatterplot.png")
 ```
 
 ## Problem 2 
-
+### Creating a data frame 
 ```{r}
 set.seed(0)
-df = 
+problem_2_df = 
   tibble(
     random_sample = rnorm(10),
     vec_logical = random_sample > 0, 
@@ -47,30 +44,37 @@ df =
   )
 ```
 # Fix vector factor 
-# Why are means so low?
-# Should I set.seed?
-# should i include mean of "numeric vector"/"random sample"? 
-The mean of the logical vector is `r round(mean(pull(df, vec_logical), 2))`. The mean of the character vector is `r round(mean(pull(df, vec_character), 2))`. The mean of the factor vector is `r round(mean(pull(df, vec_factor), 2))`. You cannot take the mean of neither the character nor factor vectors. 
 
-# Write as.numeric code 
+### Taking the mean of each variable 
+```{r}
+round(mean(pull(problem_2_df, random_sample), 2))
 
+round(mean(pull(problem_2_df, vec_logical), 2))
+
+round(mean(pull(problem_2_df, vec_character), 2))
+
+round(mean(pull(problem_2_df, vec_factor), 2))
+```
+
+The mean of the random sample is `r round(mean(pull(problem_2_df, random_sample), 2))`. The mean of the logical vector is `r round(mean(pull(problem_2_df, vec_logical), 2))`. The mean of the character vector is `r round(mean(pull(problem_2_df, vec_character), 2))`. The mean of the factor vector is `r round(mean(pull(problem_2_df, vec_factor), 2))`. You cannot take the mean of the character nor factor vectors. 
+
+### Converting to numeric variables
 ```{r, results = 'hide'}
 as_numeric_logical = 
-  as.numeric(pull(df, vec_logical))
+  as.numeric(pull(problem_2_df, vec_logical))
 
 as_numeric_logical
 
 as_numeric_character = 
-  as.numeric(pull(df, vec_character))
+  as.numeric(pull(problem_2_df, vec_character))
 
 as_numeric_character
 
 as_numeric_factor = 
-  as.numeric(pull(df, vec_factor))
+  as.numeric(pull(problem_2_df, vec_factor))
 
 as_numeric_factor
 ```
-When you convert the logical variable to numeric, you get an output of 1s and 0s. However, when you convert the character and factor vectors to numeric, you get an output of 'NA'. This shows why you cannot take the mean of these variables, R cannot understand them as numeric. 
+When you convert the logical variable to numeric, you get an output of 1s and 0s, which are being converted to numerical variables. However, when you convert the character and factor vectors to numeric, you get an output of 'NA'. This shows why you cannot take the mean of these variables, R does not understand them as numeric. 
 
-# is it okay to do results equals hide 
 

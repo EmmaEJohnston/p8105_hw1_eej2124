@@ -13,18 +13,16 @@ library(tidyverse)
 ```{r}
 data("penguins", package = "palmerpenguins")
 ```
-This data set includes information on the `r colnames(penguins)` of the penguins studied. It has `r ncol(penguins)` columns and `r nrow(penguins)` rows. The mean flipper length is `r round(mean(pull(penguins, flipper_length_mm), na.rm = TRUE), 2)` mm. 
-
-# How do I include "values" of important variables? - say stuff about range of data 
+This dataset includes information on the `r colnames(penguins)` of the penguins studied. It has `r ncol(penguins)` columns and `r nrow(penguins)` rows. The bill length of the penguins had a range of `r min(penguins$bill_length_mm, na.rm = TRUE)` to `r max(penguins$bill_length_mm, na.rm = TRUE)` mm, and the bill depth of the penguins had a range of `r min(penguins$bill_depth_mm, na.rm = TRUE)` to `r max(penguins$bill_depth_mm, na.rm = TRUE)` mm. The flipper lengths of the penguins range between `r min(penguins$flipper_length_mm, na.rm = TRUE)` and `r max(penguins$flipper_length_mm, na.rm = TRUE)` mm. The penguins weigh between `r min(penguins$body_mass_g, na.rm = TRUE)` and `r max(penguins$body_mass_g, na.rm = TRUE)` g. The mean flipper length is `r round(mean(pull(penguins, flipper_length_mm), na.rm = TRUE), 2)` mm. 
 
 ### Making a scatterplot 
-```{r}
+```{r warning=FALSE}
 ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + geom_point()
 ```
-This scatterplot examines the relationship between bill length and flipper length of three different species of penguins. 
+This scatterplot examines the relationship between the bill length and flipper length of three different species of penguins: Adelie, Chinstrap, and Gentoo. 
 
 ### Saving the scatterplot 
-```{r}
+```{r warning=FALSE, message=FALSE}
 ggsave("scatterplot.png")
 ```
 
@@ -36,11 +34,15 @@ problem_2_df =
   tibble(
     random_sample = rnorm(10),
     vec_logical = random_sample > 0, 
-    vec_character = character(length = 10),
-    vec_factor = factor(c(length = 10), levels = 3)
+    vec_character = c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j"),
+    vec_factor = factor(c("A", "B", "C", "A", "B", "C", "A", "B", "C", "A"))
   )
 ```
-# Fix vector factor 
+
+### Data frame 
+```{r}
+problem_2_df
+```
 
 ### Taking the mean of each variable 
 ```{r}
@@ -52,10 +54,10 @@ round(mean(pull(problem_2_df, vec_character)), 2)
 
 round(mean(pull(problem_2_df, vec_factor)), 2)
 ```
-The mean of the random sample numeric variable is `r round(mean(pull(problem_2_df, random_sample)), 2)`. The mean of the logical vector is `r round(mean(pull(problem_2_df, vec_logical)), 2)`. The mean of the character vector is `r round(mean(pull(problem_2_df, vec_character)), 2)`. The mean of the factor vector is `r round(mean(pull(problem_2_df, vec_factor)), 2)`. You cannot take the mean of the character nor factor vectors because they are not numeric or logical. 
+The mean of the random sample numeric variable is `r round(mean(pull(problem_2_df, random_sample)), 2)`. The mean of the logical vector is `r round(mean(pull(problem_2_df, vec_logical)), 2)`. The mean of the character vector is `r round(mean(pull(problem_2_df, vec_character)), 2)`. The mean of the factor vector is `r round(mean(pull(problem_2_df, vec_factor)), 2)`. We see a return of NA when we try to take the mean of the character and factor variables because they are not interpreted as numeric. 
 
 ### Converting to numeric variables
-```{r, results = 'hide'}
+```{r warning=FALSE, results='hide'}
 as_numeric_logical = 
   as.numeric(pull(problem_2_df, vec_logical))
 
@@ -71,6 +73,10 @@ as_numeric_factor =
 
 as_numeric_factor
 ```
-When you convert the logical variable to numeric, you get an output of 1s and 0s, indicating that the logical variables were converted to numerical variables. However, when you convert the character and factor vectors to numeric, you get an output of 'NA'. This shows why you cannot take the mean of these variables, R does not understand them as numeric. 
+When you convert the logical variable to numeric, you get an output of 1s and 0s, indicating that the logical variables were converted to numerical variables. You can take the mean of logical variables like this one. However, when you try to convert the character variable to numeric, you get an output of 'NA' because R does not understand them as numeric. 
+```{r}
+round(mean(as_numeric_factor), 2) 
+```
+When you convert the factor variable to numeric, you get a returns of 1s, 2s, and 3s. While you can take the mean of this, these numbers represent the levels of the factor variable, not actual values, so taking the mean is not very informative. 
 
 

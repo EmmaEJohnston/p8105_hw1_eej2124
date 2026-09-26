@@ -10,7 +10,6 @@ library(tidyverse)
 ```
 
 ## Problem 1
-
 ```{r}
 data("penguins", package = "palmerpenguins")
 ```
@@ -19,7 +18,6 @@ This data set includes information on the `r colnames(penguins)` of the penguins
 # How do I include "values" of important variables? - say stuff about range of data 
 
 ### Making a scatterplot 
-
 ```{r}
 ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + geom_point()
 ```
@@ -46,15 +44,15 @@ problem_2_df =
 
 ### Taking the mean of each variable 
 ```{r}
-round(mean(pull(problem_2_df, random_sample), 2))
+round(mean(pull(problem_2_df, random_sample)), 2)
 
-round(mean(pull(problem_2_df, vec_logical), 2))
+round(mean(pull(problem_2_df, vec_logical)), 2)
 
-round(mean(pull(problem_2_df, vec_character), 2))
+round(mean(pull(problem_2_df, vec_character)), 2)
 
-round(mean(pull(problem_2_df, vec_factor), 2))
+round(mean(pull(problem_2_df, vec_factor)), 2)
 ```
-The mean of the random sample numeric variable is `r round(mean(pull(problem_2_df, random_sample), 2))`. The mean of the logical vector is `r round(mean(pull(problem_2_df, vec_logical), 2))`. The mean of the character vector is `r round(mean(pull(problem_2_df, vec_character), 2))`. The mean of the factor vector is `r round(mean(pull(problem_2_df, vec_factor), 2))`. You cannot take the mean of the character nor factor vectors. 
+The mean of the random sample numeric variable is `r round(mean(pull(problem_2_df, random_sample)), 2)`. The mean of the logical vector is `r round(mean(pull(problem_2_df, vec_logical)), 2)`. The mean of the character vector is `r round(mean(pull(problem_2_df, vec_character)), 2)`. The mean of the factor vector is `r round(mean(pull(problem_2_df, vec_factor)), 2)`. You cannot take the mean of the character nor factor vectors because they are not numeric or logical. 
 
 ### Converting to numeric variables
 ```{r, results = 'hide'}
